@@ -75,8 +75,10 @@ For questions or comments, contact: phoenix.william.d@gmail.com
 ---
 
 ## Reference
-The paper authors lost their codes so I reconstruct the project without reference code.
+
 Tom Zahavy, Alex Dikopoltsev, Daniel Moss, Gil Ilan Haham, Oren Cohen, Shie Mannor, and Mordechai Segev, "Deep learning reconstruction of ultrashort pulses," Optica 5, 666-673 (2018)
+
+No reference code provided by paper author
 
 ## License
 Will be upload soon
