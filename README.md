@@ -6,7 +6,7 @@ The phase-retrieval problem appears when measuring ultrashort laser pulses. Thes
 
 An optical measurement that determines the electric field of an ultrashort pulse is the **SHG-FROG** trace (Second Harmonic Generation – Frequency Resolved Optical Gating).
 
-![Experimental setup](sandbox:/mnt/data/94306675-2b53-4ed9-980e-0a8bc99b2249.png)
+![Experimental setup](Figure1(a).png)
 
 *Figure 1: Experimental setup for measuring SHG-FROG traces. Image credit: Rick Trebino.*
 
