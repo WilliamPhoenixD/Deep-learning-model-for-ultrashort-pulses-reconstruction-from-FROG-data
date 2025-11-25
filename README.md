@@ -4,26 +4,21 @@
 
 The phase-retrieval problem appears when measuring ultrashort laser pulses. These pulses last less than a picosecond (~10<sup>-12</sup> s), so no electronic measurement can directly capture the electric field of the pulse in the time or frequency domain. In recent years, optical techniques have advanced to the point of measuring on the attosecond scale (~10<sup>-18</sup> s).
 
-
-An optical measurement that determines the electric field of an ultrashort pulse is the **SHG-FROG** trace (Second Harmonic Generation – Frequency Resolved Optical Gating).
+We use the Frequency Resolved Optical Gating system to characterize ultrashort pulse duration and the optical setups is shown in Figure 1(a). 
 
 ![Experimental setup](Figure1(a).png)
 ![Second Harmonic Generation in lab](Figure1(b).png)
 
 *Figure 1: (a)Experimental setup for measuring SHG-FROG traces.  (b)Second Harmonic Generation in lab.
 
-We will not go into experimental minutiae. The important part is that the pulse is autocorrelated with a delayed copy of itself and passed through a second-harmonic generation crystal, which produces a signal proportional to the product of the two incident pulses. Variants of this setup exist, but the objective is always to send the crystal’s signal through a spectrometer and obtain the **SHG-FROG trace** of the incident pulse, which is
+The pulse is autocorrelated with a delayed copy of itself and passed through a second-harmonic generation crystal, which produces a signal proportional to the product of the two incident pulses. Variants of this setup exist, but the objective is always to send the crystal’s signal through a spectrometer and obtain the **SHG-FROG trace** of the incident pulse, which is
 
 $$
 \tilde{T}(\omega,\tau)
 = \left| \int_{-\infty}^{\infty} E(t)\,E(t-\tau)\,e^{i\omega t}\,dt \right|^{2}.
 $$
 
-This expression contains information in both time and frequency. For each delay \(\tau\) it tells us the spectrum obtained in the frequency domain (similar, though not identical, to a spectrogram in acoustics).
-
-If we translate the pulse in time, conjugate it, or apply a global phase shift, the SHG-FROG trace remains the same. A standard manipulation converts the expression above into a two-dimensional Fourier transform:
-
-
+Note that if a temporal translation of the pulse is performed, it is conjugated or a phase shift is performed, the same SHG-FROG trace will be obtained.A mathematical manipulation can be performed on the above expression to transform it into a two-dimensional Fourier transform:
 
 $$
 \tilde{T}(\omega,\tau)
@@ -31,17 +26,9 @@ $$
 \bar{E}_{\text{sig}}(t,\Omega)\,e^{-i\omega t - i\Omega \tau}\,dt\,d\Omega \right|^{2},
 $$
 
-where $\bar{E}_{\text{sig}}(t,\Omega)$ is the Fourier transform (with respect to $\tau$) of 
-$E_{\text{sig}}(t,\tau) = E(t)\,E(t-\tau)$, commonly referred to as the **signal operator**.
+There is no need to worry about understanding this last step, the important thing is to see that this expression is the square of the modulus of a two-dimensional Fourier transform of $E_{\text{sig}}$. That is, we know the amplitude of the coefficients of the Fourier transform but not its phase. This is what is known as a phase retrieval problem. For one-dimensional Fourier transforms this problem is impossible to solve, but for more than one dimension it is possible indeed.
 
-The key takeaway is that $\tilde{T}$ is the squared modulus of a 2-D Fourier transform of 
-$E_{\text{sig}}$. That means we know the **magnitudes** of the Fourier coefficients but not 
-their **phases**—the classic **phase-retrieval problem**. For 1-D Fourier transforms this 
-problem is ill-posed in general, but in higher dimensions it can be solved under practical 
-assumptions.
-
-
-
+The raw data we get from the FROG system does not directly give us the pulse duration. We need to reconstruct pulse profile first from raw data before conduct the pulse duration measurement. Conventionally, we use Principle Compoent Generalized Projections Algorithums to complete this reconstruction task. This algorithum is very time wasting and can not deal with the noisy or strange pulse situation. Here, use try to use Deep learning model to replace this traditional algorithum to reconstruct pulse profile from raw FROG data
 
 
 
@@ -55,7 +42,10 @@ $$
 E(t) = \sqrt{I(t)}*e^{i\phi(t)}.
 $$
 
-The experiment produces an \(N \times N\) real-valued array \(\tilde{T}_{mn}\) with \(m,n = 0,\ldots,N-1\). The objective is to retrieve the \(2N\) unknowns that describe \(E(t)\): either its real and imaginary parts, or equivalently amplitude and phase.
+This electric field is passed through the experimental setup so that the SHG-FROG trace is obtained.
+
+Here, what will be measured is the SHG-FROG trace, so this will be a two-dimensional array of $N \times N$ elements, $\tilde{T}_{mn}$ where $m,n = 0, \ldots, N-1$; and the objective is to retrieve the $2N$ numbers which represent the electric field (real and imaginary parts).
+
 
 ![Summary figures](Figure2.png)
 
@@ -65,15 +55,15 @@ This problem can be addressed using dedicated phase-retrieval algorithms such as
 
 ---
 
-## Problem from NN perspective
+## Problem from DNN perspective
 
-The aim of this project is to use **deep neural networks** to solve the phase-retrieval problem. The network’s task is to **invert** the mapping from the \(N\times N\) SHG-FROG trace (real numbers) to the \(2N\) real numbers representing the electric field’s real and imaginary parts.
+The aim of this project is to use **deep neural networks** to solve the phase-retrieval problem. The network’s task is to **invert** the mapping from the \(N x N\) SHG-FROG trace (real numbers) to the \(2N\) real numbers representing the electric field’s real and imaginary parts.
 
 ![NN perspective](Figure3.png)
 
-*Figure 3: Schematic of the input and output layers of the deep neural network that performs pulse retrieval.*
+*Figure 3: Schematic of= the deep neural network that performs pulse retrieval.*
 
-For a deeper discussion of the methodology and experiments, see the `reports/` folder.
+
 
 ---
 
